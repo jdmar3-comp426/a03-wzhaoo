@@ -69,7 +69,7 @@ export function removeKey(object, key) {
  */
 export function removeKeyNonDestructive(object, key) {
    let ret = Object.assign(object);
-   removeKey(key);
+   removeKey(ret, key);
    return ret;
 }
 
