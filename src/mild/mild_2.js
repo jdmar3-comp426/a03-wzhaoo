@@ -6,7 +6,7 @@
  * returns: { type: 'number', value: 4 }
  */
 export function identifyVariable(variable) {
-   return {type: variable.type, value: variable.value};
+   return {type: typeof variable, value: variable};
 }
 
 
@@ -48,7 +48,7 @@ export function identifyArray(array) {
  obj now does not contain the `password` field
  */
 export function removeKey(object, key) {
-   object.delete(key);
+   delete object.key;
 }
 
 /**
@@ -69,7 +69,7 @@ export function removeKey(object, key) {
  */
 export function removeKeyNonDestructive(object, key) {
    let ret = Object.assign(object);
-   ret.removeKey(key);
+   removeKey(key);
    return ret;
 }
 
