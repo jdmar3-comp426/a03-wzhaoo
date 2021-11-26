@@ -90,11 +90,10 @@ export const moreStats = {
     makerHybrids: [new Set(mpg_data.reduce(a=>a.make))].forEach((e)=>{
         return {
             make: e,
-            hybrids: {
-                mpg_data.filter((a)=>{
-                    a.hybrid && a.make == a
+            hybrids: mpg_data.filter((a)=>{
+                    a.hybrid && a.make == e
                 })
-            }
+            
         }
     }),
     avgMpgByYearAndHybrid: undefined
