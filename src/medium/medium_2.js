@@ -21,8 +21,8 @@ let len = mpg_data.length;
  */
 export const allCarStats = {
     avgMpg: {
-        city: mpg_data.map(e=>{e.city_mpg}).reduce((a, b) => {return a+b})/len,
-        highway: mpg_data.map(e=>{e.highway_mpg}).reduce((a, b) => {return a+b})/len
+        city: mpg_data.map(e=>e.city_mpg).reduce((a, b) => {return a+b})/len,
+        highway: mpg_data.map(e=>e.highway_mpg).reduce((a, b) => {return a+b})/len
     },
     allYearStats: getStatistics(mpg_data.map(a=>a.year)),
     ratioHybrids: mpg_data.map(a=>a.hybrid).filter(Boolean).length/mpg_data.length,
@@ -87,14 +87,14 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined/*[new Set(mpg_data.reduce(a=>{a.make}))].forEach((e)=>{
+    makerHybrids: [new Set(mpg_data.reduce(a=>a.make))].forEach((e)=>{
         return {
             make: e,
-            hybrids: mpg_data.filter((b)=>{
+            hybrids: mpg_data.filter(b=>
                     b.hybrid && b.make == e
-                })
-            
-        }
-    })*/,
+                )
+        }   
+        
+    }),
     avgMpgByYearAndHybrid: undefined
 };
