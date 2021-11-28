@@ -24,8 +24,8 @@ export const allCarStats = {
         city: mpg_data.reduce((a, b) => a.city_mpg+b.city_mpg)/mpg_data.length,
         highway: mpg_data.reduce((a, b) => a.highway_mpg+b.highway_mpg)/mpg_data.length
     },
-    allYearStats: getStatistics(mpg_data.map(a=>a.year)),
-    ratioHybrids: mpg_data.map(a=>a.hybrid).filter(Boolean).length/mpg_data.length,
+    allYearStats: getStatistics(mpg_data.map(a=>{a.year})),
+    ratioHybrids: mpg_data.map(a=>{a.hybrid}).filter(Boolean).length/mpg_data.length,
 };
 
 
@@ -87,7 +87,7 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: [new Set(mpg_data.reduce(a=>a.make))].forEach((e)=>{
+    makerHybrids: [new Set(mpg_data.reduce(a=>{a.make}))].forEach((e)=>{
         return {
             make: e,
             hybrids: mpg_data.filter((a)=>{
