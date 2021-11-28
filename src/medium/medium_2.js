@@ -87,7 +87,7 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: [new Set(mpg_data.reduce(a=>{a.make}))].forEach((e)=>{
+    makerHybrids: undefined/*[new Set(mpg_data.reduce(a=>{a.make}))].forEach((e)=>{
         return {
             make: e,
             hybrids: mpg_data.filter((b)=>{
@@ -95,6 +95,6 @@ export const moreStats = {
                 })
             
         }
-    }),
+    })*/,
     avgMpgByYearAndHybrid: undefined
 };
