@@ -87,14 +87,18 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: [new Set(mpg_data.reduce(a=>a.make))].forEach((e)=>{
-        return {
-            make: e,
-            hybrids: mpg_data.filter(b=>
-                    b.hybrid && b.make == e
-                )
-        }   
-        
-    }),
+    makerHybrids: hybridHelper(mpg_data),
     avgMpgByYearAndHybrid: undefined
 };
+function hybridHelper(arr){
+    let makes = [];
+    for(let i = 0; i<arr.length; i++){
+        if(!makes.includes(arr[i].make)) makes.shift(arr[i].make);
+    }
+    let objs = [];
+    for(let i = 0; i<makes.length; i++){
+        objs.shift({make: makes[i], hybrids: mpg_data.filter(e=>e.make == makes[i]).map(a=>a.id)});
+        if(objs[objs.length-1].hybrids.length == 0) objs.pop();
+    }
+    return objs;
+}
