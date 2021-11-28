@@ -100,5 +100,21 @@ function hybridHelper(arr){
         objs.shift({make: makes[i], hybrids: mpg_data.filter(e=>e.make == makes[i]).map(a=>a.id)});
         if(objs[objs.length-1].hybrids.length == 0) objs.pop();
     }
+    return objs.sort((a, b)=>{return b-a});
+}
+function yearHelper(arr){
+    let years = [];
+    for(let i = 0; i<arr.length; i++){
+        if(!makes.includes(arr[i].year)) makes.shift(arr[i].year);
+    }
+    let objs = [];
+    for(let i = 0; i<years.length; i++){
+        objs.shift({year:
+            {
+                hybrids: mpg_data.filter(e=>e.year == years[i]).reduce((a, b) => {return a+b})
+            }
+        });
+        if(objs[objs.length-1].hybrids.length == 0) objs.pop();
+    }
     return objs;
 }
