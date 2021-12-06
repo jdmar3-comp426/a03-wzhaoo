@@ -6,7 +6,7 @@ This section can be done by using the array prototype functions.
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 see under the methods section
 */
-
+let len = mpg_data.length;
 
 /**
  * This object contains data that has to do with every car in the `mpg_data` object.
@@ -20,9 +20,12 @@ see under the methods section
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
 export const allCarStats = {
-    avgMpg: undefined,
-    allYearStats: undefined,
-    ratioHybrids: undefined,
+    avgMpg: {
+        city: mpg_data.map(e=>e.city_mpg).reduce((a, b) => {return a+b})/len,
+        highway: mpg_data.map(e=>e.highway_mpg).reduce((a, b) => {return a+b})/len
+    },
+    allYearStats: getStatistics(mpg_data.map(a=>a.year)),
+    ratioHybrids: mpg_data.map(a=>a.hybrid).filter(Boolean).length/mpg_data.length,
 };
 
 
@@ -84,6 +87,34 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined,
+    makerHybrids: hybridHelper(mpg_data),
     avgMpgByYearAndHybrid: undefined
 };
+function hybridHelper(arr){
+    let makes = [];
+    for(let i = 0; i<arr.length; i++){
+        if(!makes.includes(arr[i].make)) makes.shift(arr[i].make);
+    }
+    let objs = [];
+    for(let i = 0; i<makes.length; i++){
+        objs.shift({make: makes[i], hybrids: mpg_data.filter(e=>e.make == makes[i]).map(a=>a.id)});
+        if(objs[objs.length-1].hybrids.length == 0) objs.pop();
+    }
+    return objs.sort((a, b)=>{return b-a});
+}
+function yearHelper(arr){
+    let years = [];
+    for(let i = 0; i<arr.length; i++){
+        if(!makes.includes(arr[i].year)) makes.shift(arr[i].year);
+    }
+    let objs = [];
+    for(let i = 0; i<years.length; i++){
+        objs.shift({year:
+            {
+                hybrids: mpg_data.filter(e=>e.year == years[i]).reduce((a, b) => {return a+b})
+            }
+        });
+        if(objs[objs.length-1].hybrids.length == 0) objs.pop();
+    }
+    return objs;
+}
